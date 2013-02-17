@@ -1,0 +1,24 @@
+table: boxes - Set of all nodes to be displayed on the map.  Each entry is an organization or a position FIXME: Should we change this to "nodes" before we get too deep.  (was named boxes based on orignal visualization that had boxes instead of circular nodes.
+
+name - name of the org or position i.e. Office of Emergency Management, Mayor of the City of New York
+
+superiorbox - the uid of this row's superior.  An org or a position can only have one superiorbox
+
+uid - unique id for this node
+
+ischief - if true, the position indicated is the chief of an organization.  (Commissioner is the Chief of the Department of Sanitation, the node for this organization should include the org, the chief position, and the chief name/info)  Some orgs do not have chiefs.  We may need to rethink this a bit as we explore other structures.
+
+
+gov - id of the gov that this box belongs to (NYC, baltimore, etc) so we can store all nodes in a single table... should we make a new table for every gov?
+
+description - brief description of this box - "The mission of the Department of Transportation is to...", "The role of Commissioner is to manage the operations of..."  If we intend for this to be a wiki, this kind of information will need to exist in its own tables and referenced to a box.
+
+table: people - contains information about specific people, linked to positions or orgs.
+
+firstname - First name
+lastname - Last name
+uid - unique id
+currpos - uid from "boxes" table of this person's current position
+image - filename of image for this person - currently stored in /img, will get crowded quickly
+description - text about this person, may want to split this into sections: overview, bio, education, etc.
+
