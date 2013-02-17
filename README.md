@@ -4,7 +4,7 @@ govsee
 Govsee is an online platform for visualizing government structure.  Our mission is to help make government more transparent by making it easier for people to understand the complexities of their governments.  We must understand government before we can evaluate or improve it.
 
 Core functionality:
-1) Visualization of Structure - An interactive pan and zoom interface will allow users to navigate gov structure just as they do in Google Earth.
+1) Visualization of Structure - A searchable, interactive pan and zoom interface will allow users to navigate gov structure just as they do in Google Earth.
 
 2) Wiki-based content - registered users can add/remove or modify nodes, and update information stored for orgs, positions, and people.
 
