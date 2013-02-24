@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="./style.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="js/d3.v3.min.js"></script>
 		
@@ -14,18 +14,19 @@
 
 			.node circle {
 				fill: #fff;
-				stroke: #B5D6E8;
-				stroke-width: .25px;
+				stroke: #28abe3;
+			
 			}
 
 			.node text {
-				font: .25px sans-serif;
+				
+				fill: #4d4d4d;
 			
 			}
 
 			.link {
 				fill: none;
-				stroke: #ccc;
+				stroke: #b3b3b3;
 				
 			}
 
@@ -40,9 +41,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="header" class = "menu">
-			<a class="logo"> <img src = "img/logo35.png"> </a>
-		</div>
+		
 		<div id="chart"></div>
 
 		<div id = "sidebar">
@@ -55,34 +54,28 @@
 			<div id="personName"></div>
 			<div id="personText"></div>
 		</div>
-		<div id = "footer"></div>
+
 
 		<script type="text/javascript">
 			var w = 2000, h = 2000, node, link, root;
 			  var bodyheight = $(window).height();
 				var bodywidth = $(window).width();
-
-			var force = d3.layout.force().on("tick", tick).charge(function(d) {
-				x = -100;
-
-				for ( i = 0; i < d.level; i++) {
-
-					x = x / 5;
-				}
-
-				return x;
+				var nodes;
+				
+				
+	
+				
+				
+			var commonscale = 1.6;	
+			
+			var force = d3.layout.force().on("tick",tick).charge(function(d) {
+		
+				return shrink(-1000,d.level,2.5);
 
 				//return d._children ? -d.size / 100 : -30;
 			}).linkDistance(function(d) {
 
-				x = 180;
-
-				for ( i = 0; i < d.target.level; i++) {
-
-					x = x / 2;
-				}
-
-				return x;
+				return shrink(50,d.target.level,commonscale);
 
 				//return d.target._children ? 80 : 30;
 
@@ -90,7 +83,7 @@
 
 			var vis = d3.select("#chart").append("svg:svg").attr("width", bodywidth).attr("height", bodyheight).append("g").attr("transform", "translate(0,0)").attr("id", "viewport")
 
-			d3.json("http://www.jfxart.com/alpha2/getgovjson.php?gov=NYC.json", function(json) {
+			d3.json("http://www.govsee.com/php/getgovjson.php?gov=NYC.json", function(json) {
 				root = json;
 				root.fixed = true;
 				root.x = (bodywidth / 2 ) -320;
@@ -99,7 +92,8 @@
 			});
 
 			function update() {
-				var nodes = flatten(root), links = d3.layout.tree().links(nodes);
+				nodes = flatten(root), links = d3.layout.tree().links(nodes);
+				
 
 				// Restart the force layout.
 				force.nodes(nodes).links(links).start();
@@ -118,7 +112,11 @@
 					return d.target.x;
 				}).attr("y2", function(d) {
 					return d.target.y;
-				}).attr("stroke-width",".5px");
+				}).attr("stroke-width",function(d){
+					
+					return shrink(3,d.target.level,commonscale) + "px";
+					
+				});
 
 				// Exit any old links.
 				link.exit().remove();
@@ -143,6 +141,8 @@
 				// return x;
 
 				// });
+				
+				
 				// Enter any new nodes.
 				node.append("svg:circle")
 				//.attr("class", "node")
@@ -150,82 +150,65 @@
 				//.attr("cy", function(d) { return d.y; })
 				//.attr("r", function(d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; })
 				.attr("r", function(d) {
-					x = 10;
-
-					for ( i = 0; i < d.level; i++) {
-
-						x = x / 2;
-					}
-
-					return x;
+				
+					return shrink(10,d.level,commonscale);
 
 				})
 				//.attr("r", "4.5")
-				.style("fill", color);
+				.style("fill", color)
+				//.style("stroke-width", "6.5px")
+				.style("stroke-width", function(d){
+				
+					return shrink(6.5,d.level,commonscale);
+
+				})
 				//.on("click", click)
 				//.call(force.drag);
 
 				//Adds Box Name
-				node.append("text").attr("x", function(d){return shrink(12,d.level);}).attr("text-anchor", "left").attr("transform", "rotate(0)").text(function(d) {
+				node.append("text").attr("x", function(d){return shrink(15,d.level,commonscale);}).attr("text-anchor", "left").attr("transform", "rotate(0)").text(function(d) {
 					if (d.name == "NYC.json") {
 						d.name = "NYC";
 					}
 
 					return d.name;
 				}).style("font", function(d) {
-					x = 10;
-
-					for ( i = 0; i < d.level; i++) {
-
-						x = x / 2;
-					}
-
-					return x + "px sans-serif";
-				});
+					
+					return shrink(9,d.level,commonscale) + "px Trebuchet MS";
+				})
+				.style("font-weight","bold");
 
 				//}).style("font", "5px sans-serif");
 				//.style("fill-opacity", 1e-6)
 				// Exit any old nodes.
 
 				//Adds Person Name
-				node.append("text").attr("x",  function(d){return shrink(12,d.level);}).attr("y", function(d) {
-					x = 8;
-
-					for ( i = 0; i < d.level; i++) {
-
-						x = x / 2;
-					}
-
-					return x + "px sans-serif";
+				node.append("text").attr("x",  function(d){return shrink(15,d.level,commonscale);}).attr("y", function(d) {
+				
+					return shrink(8,d.level,commonscale) + "px";
 				}).attr("text-anchor", "left").attr("transform", "rotate(0)").text(function(d) {
 
 					return d.personname;
 				}).style("font", function(d) {
-					x = 8;
-
-					for ( i = 0; i < d.level; i++) {
-
-						x = x / 2;
-					}
-
-					return x + "px sans-serif";
+				
+					return shrink(9,d.level,commonscale) + "px Trebuchet MS";
 				});
 
 				//Add Image
-				node.append("image").attr("xlink:href", function(d) {
-					if (d.image) {
-						x = "http://www.jfxart.com/alpha3/img/" + d.image;
-					} else {
+				//node.append("image").attr("xlink:href", function(d) {
+				//	if (d.image) {
+				//		x = "http://www.jfxart.com/zulu7/img/" + d.image;
+				//	} else {
 
-						x = "http://www.jfxart.com/alpha3/img/nophoto.gif"
-					}
-					return x;
-				}).attr("width", 20).attr("height", function(d) {
+				//		x = "http://www.jfxart.com/zulu7/img/nophoto.gif"
+				//	}
+				//	return x;
+				//}).attr("width", 20).attr("height", function(d) {
 					
-					return shrink(15,d.level);
-				}).attr("x", -10).attr("y",function(d){
-					return shrink(-8,d.level);
-				});
+				//	return shrink(15,d.level);
+				//}).attr("x", -10).attr("y",function(d){
+				//	return shrink(-8,d.level);
+				//});
 
 				node.exit().remove();
 			}
@@ -255,7 +238,7 @@
 
 			// Color leaf nodes orange, and packages white or blue.
 			function color(d) {
-				return d._children ? "#3182bd" : d.children ? "#c6dbef" : "#fd8d3c";
+				return d._children ? "#3182bd" : d.children ? "#ffffff" : "#fd8d3c";
 			}
 
 			// Toggle children on click.
@@ -279,7 +262,7 @@
 				var s = document.getElementById("personName");
 				s.innerHTML = d.personname;
 
-				pullUrl = "http://www.jfxart.com/alpha3/pull.php"
+				pullUrl = "http://www.jfxart.com/zulu7/pull.php"
 				
 				
 				
@@ -298,16 +281,55 @@
 
 				}
 				
+				
+				
 				});
+				
+				//test funtion to add a child node
+				
+     				 console.log(d.id + " is the id we want to match");
+     				 var bla = findObjectById(root,d.id)
+     				 console.log(bla);
+     				 
 			}
 
+
+			function findObjectById(ob, id) {
+			    if (ob.children) {
+			    	
+			        for (var k in ob.children) {
+			        	console.log("checking " + ob.children[k].name )
+			        	
+			            if (ob.children[k].id == id) {
+			                return ob.children[k];
+			            }
+			            
+			            else if(ob.children[k].children){
+			            	console.log("calling recursive for " + ob.children[k].name);	
+			            	return findObjectById(ob.children[k],id);
+			            }
+			            
+			            else {
+			            	return null;	
+			            	
+			            }
+			           
+			            
+			        }
+			    }
+			};
+
+
+
+
+
 			//reduces, pass it the original value and the level
-			function shrink(x,level){
+			function shrink(x,level,rate){
 				
 
 				for ( i = 0; i < level; i++) {
 
-					x = x / 2;
+					x = x / rate;
 				}
 
 				
