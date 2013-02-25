@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link href="./style.css" rel="stylesheet" type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script src="js/d3.v3.min.js"></script>
 		
@@ -126,7 +126,7 @@
 					return d.id;
 				});
 				//.style("fill", color)
-				node.enter().append("g").attr("class", "node").on("click", click).call(force.drag).on("click", click).on("dblclick", dblclick);
+				var nodeEnter = node.enter().append("g").attr("class", "node").on("click", click).call(force.drag).on("click", click).on("dblclick", dblclick);
 
 				//node.transition()
 				//.attr("r", function(d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; });
@@ -144,7 +144,7 @@
 				
 				
 				// Enter any new nodes.
-				node.append("svg:circle")
+				var circle = nodeEnter.append("svg:circle")
 				//.attr("class", "node")
 				//.attr("cx", function(d) { return d.x; })
 				//.attr("cy", function(d) { return d.y; })
@@ -161,12 +161,12 @@
 				
 					return shrink(6.5,d.level,commonscale);
 
-				})
+				});
 				//.on("click", click)
 				//.call(force.drag);
 
 				//Adds Box Name
-				node.append("text").attr("x", function(d){return shrink(15,d.level,commonscale);}).attr("text-anchor", "left").attr("transform", "rotate(0)").text(function(d) {
+				var nameText = nodeEnter.append("svg:text").attr("x", function(d){return shrink(15,d.level,commonscale);}).attr("text-anchor", "left").attr("transform", "rotate(0)").text(function(d) {
 					if (d.name == "NYC.json") {
 						d.name = "NYC";
 					}
@@ -183,7 +183,7 @@
 				// Exit any old nodes.
 
 				//Adds Person Name
-				node.append("text").attr("x",  function(d){return shrink(15,d.level,commonscale);}).attr("y", function(d) {
+				var personText = nodeEnter.append("svg:text").attr("x",  function(d){return shrink(15,d.level,commonscale);}).attr("y", function(d) {
 				
 					return shrink(8,d.level,commonscale) + "px";
 				}).attr("text-anchor", "left").attr("transform", "rotate(0)").text(function(d) {
