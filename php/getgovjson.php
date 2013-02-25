@@ -10,25 +10,27 @@ $gov = $_GET['gov'];
 
 
 //mySQL connection
-$con = mysql_connect("localhost","chriswho_govsee","GOVc21");
+$con = mysql_connect('govsee.com','govsee','s33TheG0v');
 if (!$con)
   {
   die('Could not connect: ' . mysql_error());
   }
 
-$selected = mysql_select_db("chriswho_govsee",$con) 
+$selected = mysql_select_db("govsee",$con) 
   or die("Could not select db");
 
 //calls recursive function that creates nested arrays by checking each box for subordinate boxes.  
 //(passes a 0 for boxes that have no superiorbox)
 //also grabs chief's title and name if a person has been assigned that position
 //FIXME this needs some way to specify the selected gov.
+static $level =0;
+
 $rows = getSubordinates(0,$level);
   
 //converts nested array into json  
 print "{\"name\":\"".$gov."\",\"children\":".json_encode($rows)."}";
 
-static $level =0;
+
 
 function getSubordinates($supID,$level){
 	$srows = array();
