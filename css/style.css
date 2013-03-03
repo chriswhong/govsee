@@ -1,6 +1,6 @@
 body {
 	font-family: Helvetica;
-	overflow:hidden;
+	overflow: hidden;
 	margin: 0px;
 }
 #boxText, #personText {
@@ -15,9 +15,9 @@ body {
 
 #header {
 	position: fixed;
-	top: 0;
+	top: 46px;
+	left: 46px;
 	height: 45px;
-	width: 100%;
 	overflow: hidden;
 	z-index: 2;
 }
@@ -51,40 +51,63 @@ body {
 }
 
 #sidebar {
-	background-color: #E1EBFC;
-	border: 1px solid #A2A2A2;
-	position: absolute;
-	top: 57px;
-	right: 7px;
-	z-index: 150;
-	padding: 10px 7px;
-	height: 557px;
-	width: 320px;
-	overflow: auto;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
-	-o-border-radius: 5px;
-	border-radius: 5px;
+background-color: #CCCCCC;
+position: absolute;
+top: 0px;
+right: 0px;
+height: 100%;
+width: 274px;
+border-left: 5px;
+border-left-color: #b3b3b3;
+border-left-style: solid;
+padding: 10px;
 }
 
 #footer {
-	bottom: 0;
+	bottom: 46px;
+	left:46px;
 	position: fixed;
-	height: 45px;
-	width: 100%;
-	border-bottom: 1px solid #CACFD2;
-	background-color: rgba(210, 215, 217, 0.9);
-	background-size: 100%;
-	background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0%,white),color-stop(100%,rgba(210, 215, 217, 0.9)));
-	background-image: -webkit-linear-gradient(#CECFD1,#E6E6E9);
-	background-image: -moz-linear-gradient(#CECFD1,#E6E6E9);
-	background-image: -o-linear-gradient(#CECFD1,#E6E6E9);
-	background-image: linear-gradient(#CECFD1,#E6E6E9);
-	-webkit-box-shadow: rgba(0, 92, 255, 0.88) 0 0px 13px;
-	-moz-box-shadow: rgba(0, 92, 255, 0.88) 0 0px 13px;
-	box-shadow: rgba(0, 92, 255, 0.88) 0 -1px 13px;
+	
+
+	font-family: ProximaNova;
 }
+
+#footer ul{
+	
+	margin: 0px;
+	padding: 0px;
+	
+	
+}
+
+#footer ul li {
+	display: inline;
+	padding: 0px 3px 0px 3px;
+	font-size: 17px;
+	width: 9em;
+	margin:0;
+	
+}
+
+#footer li a:link {
+
+	color: #999999;
+	text-decoration: none;
+}
+
+#footer li a:visited {
+
+	color: #999999;
+
+}
+
+
+#footer li a:hover {
+
+	color: #62B244;
+}
+
+
 
 .menu {
 
@@ -97,3 +120,7 @@ body {
 	box-shadow: rgba(0, 92, 255, 0.88) 0 -1px 14px;
 }
 
+@font-face {
+	font-family: ProximaNova;
+	src: url(../font/ProximaNova-Regular.otf);
+}

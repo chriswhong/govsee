@@ -11,7 +11,7 @@
 				cursor: pointer;
 			}
 
-			.node circle {
+			//.node circle {
 				fill: #fff;
 				stroke: #28abe3;
 			}
@@ -26,18 +26,13 @@
 				stroke: #b3b3b3;
 			}
 
-			.node rect {
-				cursor: pointer;
-				fill: #fff;
-				fill-opacity: .5;
-				stroke: #3182bd;
-				stroke-width: 1.5px;
-			}
+			
 
 		</style>
 	</head>
 	<body>
-
+		<div id="header"><img src = "img/logo43.png"></div>
+		<div id="footer"><ul><li><a href ="#">About</a></li> <li><a href ="#">Blog</a></li>  <li><a href ="#">Content</a></li> </ul></div>
 		<div id="chart"></div>
 
 		<div id = "sidebar">
@@ -52,16 +47,15 @@
 			<div id="form">
 				<form name="addbox" id="addbox" action="reformed/formmail/formmail.php">
 					<label for="name">Add Subordinate</label>
-							<br/>
-													
-							<input type="text" name = "name" id="newSubName"  />Name
-							<textarea name="description" id="description" rows="6" cols="30">Enter text here...</textarea><br/>
-							description
-							<input type='hidden' name = "superiorbox" id='uid' value=''>
-							<br/>
+					<br/>
+
+					<input type="text" name = "name" id="newSubName"  />
+					Name 					<textarea name="description" id="description" rows="6" cols="30">Enter text here...</textarea>
+<br/>					description
+					<input type='hidden' name = "superiorbox" id='uid' value=''>
+					<br/>
 					<a href="javascript: submitform()">Add</a>
-					
-				
+
 				</form>
 				<input type='hidden' name = "index" id='index' value=''>
 			</div>
@@ -72,39 +66,53 @@
 			var bodyheight = $(window).height();
 			var bodywidth = $(window).width();
 			var nodes;
-			
-			var resp ;
 
-			var commonscale = 1.6;
+			var resp;
+
+			var commonscale = 1.5;
 
 			//gravity and link length settings
-			var force = d3.layout.force().on("tick", tick).charge(function(d) {
+			var force = d3.layout.force().on("tick", tick)
 
-				return shrink(-500, d.level, 1.4);
+			//.charge(function(d) {
 
-				//return d._children ? -d.size / 100 : -30;
+			//return shrink(-500, d.level, 1.4);
+
+			//return d._children ? -d.size / 100 : -30;
+			//}).linkDistance(function(d) {
+
+			//return shrink(100, d.target.level, 2);
+
+			//return d.target._children ? 80 : 30;
+
+			//}).size([w, h - 160])
+
+			.charge(function(d) {
+				return shrink(-500, d.level, commonscale);
+
+				//return d._children ? -100+(d.level*5) : (-30)+(d.level);
 			}).linkDistance(function(d) {
+				return shrink(100, d.target.level, commonscale)
+				//return d.target._children ? shrink(60,d.target.level,commonscale) : shrink(30,d.target.level,commonscale);
+			})
+			//.linkDistance(50)
 
-				return shrink(100, d.target.level, 2);
-
-				//return d.target._children ? 80 : 30;
-
-			}).size([w, h - 160]).linkStrength(5).gravity(0).theta(.1);
+			.linkStrength(1).gravity(.2).theta(.1).size([bodywidth, bodyheight]).theta(1.5).friction(.5);
 
 			var vis = d3.select("#chart").append("svg:svg").attr("width", bodywidth).attr("height", bodyheight).append("g").attr("transform", "translate(0,0)").attr("id", "viewport")
 
 			d3.json("http://www.govsee.com/php/getgovjson.php?gov=NYC.json", function(json) {
 				root = json;
 				root.fixed = true;
-				root.x = (bodywidth / 2 ) - 320;
-				root.y = bodyheight / 2 - 80;
+				root.x = bodywidth / 2;
+				root.y = bodyheight / 2;
 				update();
 			});
 
 			function update() {
-				if (!nodes) {
-					nodes = flatten(root), links = d3.layout.tree().links(nodes);
-				}
+				//if (!nodes) {
+				nodes = flatten(root), links = d3.layout.tree().links(nodes);
+				//}
 
 				// Update the links…
 				link = vis.selectAll("line.link").data(links, function(d) {
@@ -139,7 +147,10 @@
 					return d.id;
 				});
 				//.style("fill", color)
-				var nodeEnter = node.enter().append("g").attr("class", "node").on("click", click).call(force.drag).on("click", click).on("dblclick", dblclick);
+				var nodeEnter = node.enter().append("g").attr("class", "node").attr("id",function(d){
+					return d.id;	
+					
+				}).on("click", click).call(force.drag).on("click", click).on("dblclick", dblclick);
 
 				//node.transition()
 				//.attr("r", function(d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; });
@@ -163,17 +174,18 @@
 				//.attr("r", function(d) { return d.children ? 4.5 : Math.sqrt(d.size) / 10; })
 				.attr("r", function(d) {
 
-					return shrink(10, d.level, commonscale);
+					return shrink(8, d.level, commonscale);
 
 				})
 				//.attr("r", "4.5")
 				.style("fill", color)
 				//.style("stroke-width", "6.5px")
-				.style("stroke-width", function(d) {
+				//.style("stroke-width", function(d) {
 
-					return shrink(6.5, d.level, commonscale);
+					//return shrink(6.5, d.level, commonscale);
 
-				});
+				//})
+				.attr("class","c");
 				//.on("click", click)
 				//.call(force.drag);
 
@@ -188,8 +200,9 @@
 					return d.name;
 				}).style("font", function(d) {
 
-					return shrink(9, d.level, commonscale) + "px Trebuchet MS";
-				}).style("font-weight", "bold");
+					return shrink(9, d.level, commonscale) + "px ProximaNova";
+				});
+				//.style("font-weight", "bold");
 
 				//}).style("font", "5px sans-serif");
 				//.style("fill-opacity", 1e-6)
@@ -206,8 +219,23 @@
 					return d.personname;
 				}).style("font", function(d) {
 
-					return shrink(9, d.level, commonscale) + "px Trebuchet MS";
+					return shrink(9, d.level, commonscale) + "px ProximaNova";
 				});
+
+				//Adds Debug Text for the node's charge
+				//var personText = nodeEnter.append("svg:text").attr("x", function(d) {
+				//return shrink(15, d.level, commonscale);
+				//}).attr("y", function(d) {
+
+				//	return shrink(16, d.level, commonscale) + "px";
+				//}).attr("text-anchor", "left").attr("transform", "rotate(0)").text(function(d) {
+
+				//	return shrink(-80, d.level, commonscale).toFixed(2) + " " + shrink(50,d.level,commonscale).toFixed(2);
+
+				//}).style("font", function(d) {
+
+				//return shrink(9, d.level, commonscale) + "px Trebuchet MS";
+				//});
 
 				//Add Image
 				//node.append("image").attr("xlink:href", function(d) {
@@ -256,7 +284,7 @@
 
 			// Color leaf nodes orange, and packages white or blue.
 			function color(d) {
-				return d._children ? "#3182bd" : d.children ? "#ffffff" : "#fd8d3c";
+				return d.children ? "#62b144" : "#29aae3";
 			}
 
 			// Toggle children on click.
@@ -273,7 +301,13 @@
 
 			//Click
 			function click(d) {
-
+				
+				var x = d3.select(this).select("circle");
+				console.log(x);
+				x.attr("r", shrink(10,d.level,commonscale)).style("fill", "#ffffff")
+				.style("stroke-width",shrink(6.5,d.level,commonscale)).style("stroke",color);
+				
+				
 				var s = document.getElementById("boxName");
 				s.innerHTML = d.name;
 
@@ -296,11 +330,10 @@
 
 					}
 				});
-				
+
 				$('#uid').val(d.uid);
 				$('#index').val(d.index);
-			
-			
+				update();
 
 			}
 
@@ -338,61 +371,46 @@
 				return nodes;
 			}
 
+			function submitform() {
+				var newSubName = document.getElementById("newSubName").value;
 
-			function submitform()
-				{
-				 	 var newSubName = document.getElementById("newSubName").value;
-				
-					
-						
-						
-						
-				 	 
-				 	 //alert(newSubName + " " + description + " " + newSubUid);
+				//alert(newSubName + " " + description + " " + newSubUid);
 				var s = $('#addbox').serialize();
 				console.log(s);
-				 	 
-				 	 
-				$.ajax({type:'POST', 
-				url: 'http://www.govsee.com/php/insertbox.php', 
-				dataType:'html',
-				data:$('#addbox').serialize(), 
-				complete: function(response) {
-    					//test funtion to add a child node
-							resp=response;
-							var ind = document.getElementById("index").value;
-							var parentNode = nodes[ind];
-							
-							var newNode = {
-								id : nodes.length + 1,
-								name : newSubName,
-								level :  parentNode.level + 1,
-								uid : response.responseText
-							};
-							
-							nodes.push(newNode);
-							
-							var newLink = {
-								source : parentNode,
-								target : newNode
-							};
-							
-							links.push(newLink);
-							update();
 
-    					
-    					
-    					
-    					
-    					
-    					
+				$.ajax({
+					type : 'POST',
+					url : 'http://www.govsee.com/php/insertbox.php',
+					dataType : 'html',
+					data : $('#addbox').serialize(),
+					complete : function(response) {
+						//test funtion to add a child node
+						resp = response;
+						var ind = document.getElementById("index").value;
+						var parentNode = nodes[ind];
+
+						var newNode = {
+							id : nodes.length + 1,
+							name : newSubName,
+							level : parentNode.level + 1,
+							uid : response.responseText
+						};
+
+						nodes.push(newNode);
+
+						var newLink = {
+							source : parentNode,
+							target : newNode
+						};
+
+						links.push(newLink);
+						update();
+
 					}
-				});	 	 
-				 	 
-				 	 
-				 	 
-				 	 
-				}
+				});
+
+			}
+
 
 			$(window).resize(function() {
 				bodyheight = $(window).height();
