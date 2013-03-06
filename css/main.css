@@ -1,0 +1,173 @@
+html {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	height: 100%;
+	background: #CCCCCC;
+}
+
+#topbg {
+	background: #E6E6E6;
+	height: 468px;
+}
+
+#topcontainer {
+
+	width: 1045px;
+	height: 100%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#bottombg {
+	background: #CCCCCC;
+	height: 100%;
+}
+
+#logo {
+
+	position: relative;
+	top: 60px;
+	left: 60px;
+}
+
+.bigblue {
+	font-family: ProximaNovaLight;
+	font-size: 72px;
+	color: #40B8E2;
+	margin: 0;
+	line-height:61px;
+}
+
+.bigbluewrapper {
+
+	position: absolute;
+	top: 156px;
+	left:60px;
+}
+
+.slidermockup {
+
+	position: absolute;
+	right: 150px;
+	top: 106px;
+}
+
+.slidermockup2 {
+
+	position: absolute;
+	right: 130px;
+	top: 83px;
+}
+
+.bjqs-wrapper {
+	
+	
+}
+
+
+.tagline{
+	font-family: ProximaNovaSemibold;
+	font-size: 17px;
+	color: #808080;
+	position:absolute;
+	top:300px;
+	left:60px;
+}
+
+#pinkbar{
+	width: 400px;
+	
+height:13px;
+background: #D4145A;
+position:relative;
+top:35px;
+left:60px;
+font-family:ProximaNovaSemibold;
+color:#FFFFFF;
+font-size:17px;
+padding:10px;
+
+	
+}
+
+#mc_embed_signup {
+	position:relative;
+	top:50px;
+	left:60px;
+	padding:0;
+		
+}
+
+#mc_embed_signup input.email{
+	height:29px;
+	border:0;
+	padding:2px 0 0 10px;
+	margin:0;
+	font-family: ProximaNovaSemibold;
+	color: #4d4d4d;
+	font-size:17px;
+	float: left;
+}
+
+#mc_embed_signup input.button{
+	border: 0;
+backgroun: none;
+background: none;
+font-family: ProximaNovaSemibold;
+font-size: 17px;
+color: #808080;
+padding: 7px 0 0 5px;
+	
+}
+
+
+#footerleft{
+	
+	font-family: ProximaNovaSemibold;
+position: relative;
+top: 108px;
+left: -141px;
+font-size: 15px;
+color: #4d4d4d;
+float:left;
+}
+
+#footerright{
+position: relative;
+right: -392px;
+top: 164px;
+right: 60px;
+float: right;
+width: 195px;
+}
+
+#tweet{
+	float:right;
+	right: 46px;
+top: 108px;
+	position: relative;
+}
+.fb-like{
+	float:right;
+	right: 60px;
+top: 108px;
+	position:relative;
+}
+	
+
+@font-face {
+	font-family: ProximaNova;
+	src: url(../font/ProximaNova-Regular.otf);
+}
+@font-face {
+	font-family: ProximaNovaLight;
+	src: url(../font/ProximaNova-Light.otf);
+}
+@font-face {
+	font-family: ProximaNovaSemibold;
+	src: url(../font/ProximaNova-Semibold.otf);
+}
