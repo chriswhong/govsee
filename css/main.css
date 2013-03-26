@@ -133,6 +133,7 @@ body {
 
 #mc_embed_signup input.button:hover {
 	color: #D4145A;
+	cursor: pointer;
 }
 
 .signin {
@@ -188,6 +189,7 @@ body {
 input.button:hover {
 
 	color: #D4145A;
+	cursor: pointer;
 }
 
 .signintext {
@@ -245,4 +247,66 @@ input.button:hover {
 a:link {
 	text-decoration: none;
 	color: #808080;
+}
+
+#menu {
+	position: absolute;
+	top: 76px;
+	font-family: ProximaNova;
+	font-size: 25px;
+	right: 60px;
+	color: #808080;
+	z-index: 2;
+}
+.menuitem {
+	padding-left: 30px;
+}
+.menuitem:hover {
+	color: #D4145A;
+	cursor: pointer;
+}
+.infobox {
+	position: absolute;
+	width: 720px;
+	background: rgb(255, 255, 255);
+	left: 120px;
+	top: 133px;
+	height: 490px;
+	z-index: 4;
+	padding: 40px;
+	font-family: proximaNovaLight;
+	color: rgb(182, 182, 182);
+	font-size: 32px;
+	display:none;
+}
+
+.infotitle {
+	font-size: 51px;
+}
+
+.infobox a:link {
+	color: #40B8E2;
+	text-shadow: 1px 1px 2px rgb(250, 250, 250);
+}
+.infobox a:visited {
+	color: #40B8E2;
+	text-shadow: 1px 1px 2px rgb(250, 250, 250);
+}
+.infobox a:hover {
+
+	color: #D4145A;
+	cursor: pointer;
+}
+.closebox {
+	position: absolute;
+	top: 24px;
+	right: 22px;
+}
+
+.closebox:hover{
+	color: #D4145A;
+	cursor: pointer;
+}
+#contactbox {
+	font-size: 32px;
 }
