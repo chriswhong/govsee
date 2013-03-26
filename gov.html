@@ -11,7 +11,8 @@
 				cursor: pointer;
 			}
 
-			//.node circle {
+			//
+			.node circle {
 				fill: #fff;
 				stroke: #28abe3;
 			}
@@ -26,21 +27,35 @@
 				stroke: #b3b3b3;
 			}
 
-			
-
 		</style>
 	</head>
 	<body>
-		<div id="header"><img src = "/img/logo43.png"></div>
-		<div id="footer"><ul><li><a href ="#">About</a></li> <li><a href ="#">Blog</a></li>  <li><a href ="#">Content</a></li> </ul></div>
+		<div id="header"><img src = "/img/logo43.png">
+		</div>
+		<div id="footer">
+			<ul>
+				<li>
+					<a href ="#">About</a>
+				</li>
+				<li>
+					<a href ="#">Blog</a>
+				</li>
+				<li>
+					<a href ="#">Content</a>
+				</li>
+			</ul>
+		</div>
 		<div id="chart"></div>
 
 		<div id = "sidebar">
+			{{loginstatus}}<br/>
 			Doubleclick a node with children to collapse it.
 			Drag nodes to rearrange the layout.
 			Use scroll wheel to zoom.
 			Drag white space to pan.
-			<div id="boxName">{{gov_name}}</div>
+			<div id="boxName">
+				{{gov_name}}
+			</div>
 			<div id="boxText"></div>
 			<div id="personName"></div>
 			<div id="personText"></div>
@@ -51,7 +66,8 @@
 
 					<input type="text" name = "name" id="newSubName"  />
 					Name 					<textarea name="description" id="description" rows="6" cols="30">Enter text here...</textarea>
-<br/>					description
+					<br/>
+					description
 					<input type='hidden' name = "superiorbox" id='uid' value=''>
 					<br/>
 					<a href="javascript: submitform()">Add</a>
@@ -64,16 +80,23 @@
 		<script type="text/javascript">
 			var w = 2000, h = 2000, node, link, root;
 			var bodyheight = $(window).height();
-			var bodywidth = $(window).width()-280;
+			var bodywidth = $(window).width() - 280;
 			var nodes;
+			var labelAnchors = [];
+			var labelAnchorLinks = [];
 
 			var resp;
 
-			var commonscale = 1.0;
-
+			var commonscale = 1.25;
+			var friction = .3;
+			var theta = .8;
+			var gravity = .15;
+			var linkStrength = 1;
+			var charge = -8000;
+			var linkDistance = 1000;
 			//gravity and link length settings
 			var force = d3.layout.force().on("tick", tick)
-
+			
 			//.charge(function(d) {
 
 			//return shrink(-500, d.level, 1.4);
@@ -88,20 +111,26 @@
 			//}).size([w, h - 160])
 
 			.charge(function(d) {
-				return shrink(-500, d.level, commonscale);
+				return shrink(charge, d.level, 2);
 
 				//return d._children ? -100+(d.level*5) : (-30)+(d.level);
 			}).linkDistance(function(d) {
-				return shrink(100, d.target.level, commonscale)
+				return shrink(linkDistance, d.target.level, 5)
 				//return d.target._children ? shrink(60,d.target.level,commonscale) : shrink(30,d.target.level,commonscale);
 			})
 			//.linkDistance(50)
 
-			.linkStrength(1).gravity(.2).theta(.1).size([bodywidth, bodyheight]).theta(1.5).friction(.5);
+			.linkStrength(linkStrength).gravity(gravity).theta(theta).size([bodywidth, bodyheight]).friction(friction);
+
+
+var force2 = d3.layout.force().nodes(labelAnchors).links(labelAnchorLinks).gravity(0).linkDistance(0).linkStrength(8).charge(-100).size([w, h]);
+		
 
 			var vis = d3.select("#chart").append("svg:svg").attr("width", bodywidth).attr("height", bodyheight).append("g").attr("transform", "translate(0,0)").attr("id", "viewport")
 
-			d3.json("/api/govlist/id/{{gov_id}}", function(json) {
+			//Pull json from server instead of creating it locally... saves Chris time doing local dev
+			d3.json("http://www.govsee.com/api/govlist/id/{{gov_id}}", function(json) {
+				//d3.json("/api/govlist/id/{{gov_id}}", function(json) {
 				root = json;
 				root.fixed = true;
 				root.x = bodywidth / 2;
@@ -143,13 +172,14 @@
 				link.exit().remove();
 
 				// Update the nodes…
+
 				node = vis.selectAll("g.node").data(nodes, function(d) {
 					return d.id;
 				});
 				//.style("fill", color)
-				var nodeEnter = node.enter().append("g").attr("class", "node").attr("id",function(d){
-					return d.id;	
-					
+				var nodeEnter = node.enter().append("g").attr("class", "node").attr("id", function(d) {
+					return d.id;
+					//add .call(force.drag) to below line to bring back running the animation on drag
 				}).on("click", click).call(force.drag).on("click", click).on("dblclick", dblclick);
 
 				//node.transition()
@@ -182,10 +212,10 @@
 				//.style("stroke-width", "6.5px")
 				//.style("stroke-width", function(d) {
 
-					//return shrink(6.5, d.level, commonscale);
+				//return shrink(6.5, d.level, commonscale);
 
 				//})
-				.attr("class","c");
+				.attr("class", "c");
 				//.on("click", click)
 				//.call(force.drag);
 
@@ -253,10 +283,35 @@
 				//	return shrink(-8,d.level);
 				//});
 
+anchorNode = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
+			anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
+				anchorNode.append("svg:text").text(function(d) {
+				return d.node.name;
+			}).style("fill", "#555").style("font-family", "Arial").style("font-size", 12);
+
+
+
+for(var i = 0; i < nodes.length; i++) {
+				
+				labelAnchorLinks.push({
+					source : i * 2,
+					target : i * 2 + 1,
+					weight : 1
+				});
+			};
+
+
+
 				node.exit().remove();
 
 				// Restart the force layout.
 				force.nodes(nodes).links(links).start();
+				
+				
+				force2.nodes(labelAnchors).links(labelAnchorLinks).start();
+				
+				//for (var i = 100; i > 0; --i) force.tick();
+				//force.stop();
 			}
 
 
@@ -279,6 +334,26 @@
 				node.attr("transform", function(d) {
 					return "translate(" + d.x + "," + d.y + ")";
 				});
+				
+			anchorNode.each(function(d, i) {
+					if(i % 2 == 0) {
+						d.x = d.node.x;
+						d.y = d.node.y;
+					} else {
+						var b = this.childNodes[1].getBBox();
+
+						var diffX = d.x - d.node.x;
+						var diffY = d.y - d.node.y;
+
+						var dist = Math.sqrt(diffX * diffX + diffY * diffY);
+
+						var shiftX = b.width * (diffX - dist) / (dist * 2);
+						shiftX = Math.max(-b.width, Math.min(0, shiftX));
+						var shiftY = 5;
+						this.childNodes[1].setAttribute("transform", "translate(" + shiftX + "," + shiftY + ")");
+					}
+				});
+				
 
 			}
 
@@ -287,7 +362,7 @@
 				return d.children ? "#62b144" : "#29aae3";
 			}
 
-			// Toggle children on click.
+			// Toggle children on doubleclick.
 			function dblclick(d) {
 				if (d.children) {
 					d._children = d.children;
@@ -301,21 +376,22 @@
 
 			//Click
 			function click(d) {
-				
+
+				force.stop();
+
 				var prev = d3.selectAll("g.node circle");
-				prev.style("fill", "#29aae3").style("stroke-width", "0").style("stroke","none");
+				prev.style("fill", "#29aae3").style("stroke-width", "0").style("stroke", "none");
 
 				var x = d3.select(this).select("circle");
-				x.attr("r", shrink(10,d.level,commonscale)).style("fill", "#ffffff")
-				.style("stroke-width",shrink(6.5,d.level,commonscale)).style("stroke",color);
-				
+				x.attr("r", shrink(10, d.level, commonscale)).style("fill", "#ffffff").style("stroke-width", shrink(6.5, d.level, commonscale)).style("stroke", color);
+
 				var s = document.getElementById("boxName");
 				s.innerHTML = d.name;
 
 				var s = document.getElementById("personName");
 				s.innerHTML = d.personname;
 
-				pullUrl = "/api/govdetail/id/"+d.uid;
+				pullUrl = "/api/govdetail/id/" + d.uid;
 
 				$.ajax({
 					type : "GET",
@@ -333,7 +409,7 @@
 
 				$('#uid').val(d.uid);
 				$('#index').val(d.index);
-				update();
+				//update();
 
 			}
 
@@ -361,7 +437,9 @@
 					if (!node.id)
 						node.id = ++i;
 					nodes.push(node);
-
+					labelAnchors.push({
+						node : node
+					});
 					return 100;
 					//return node.size;
 				}

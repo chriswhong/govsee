@@ -83,25 +83,44 @@
 							</li>
 						</ul>
 					</div>
+				</div>
+				<div id = "bottomcontainer">
 					<div id = "pinkbar">
 						Want to be contacted when the Beta is available?
 					</div>
-					
-						<!-- Begin MailChimp Signup Form -->
-						
-						
-						<div id="mc_embed_signup">
-							<form action="http://govsee.us6.list-manage.com/subscribe/post?u=67cf1a1a76&amp;id=02e523b26f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-								
-								<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
-								<div class="clear">
-									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-								</div>
-							</form>
-						</div>
+					<div class="signin">
+						<form action="php/login.php" class="" method="post">
 
-						<!--End mc_embed_signup-->
-					
+							<input type="text" id="username" class="signin-username" name="username" placeholder="Username" tabindex="1">
+
+							<input type="password" id="password" class="signin-password" name = "password" placeholder="Password" tabindex="2">
+
+							<input type="submit" value="Sign In" name="signin" id="signin" class="button">
+
+							<div class="signintext">
+								<label class="remember">
+									<input type="checkbox" value="1" name="remember_me" tabindex="3">
+									<span>Remember me</span> </label>
+								<span class="separator">·</span>
+								<a class="forgot" href="/account/resend_password">Forgot password?</a>
+							</div>
+
+						
+						</form>
+					</div>
+					<!-- Begin MailChimp Signup Form -->
+
+					<div id="mc_embed_signup">
+						<form action="http://govsee.us6.list-manage.com/subscribe/post?u=67cf1a1a76&amp;id=02e523b26f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+							<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+
+							<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+
+						</form>
+					</div>
+
+					<!--End mc_embed_signup-->
 
 					<div id = "footerleft">
 						© 2013 Govsee.com

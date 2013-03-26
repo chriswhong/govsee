@@ -28,7 +28,7 @@ if ($param1 == 'govlist' && $param2 == 'id'){
 		$rows = getSubordinates(0,0,$gov_id,$con);
 	}else{
 		$gov = '';
-		$rows = [];
+		$rows = NULL;
 	}
 }else if($param1 == 'govlist' && $param2 !== ''){
     if ($result = $con->query("SELECT gov_id, name FROM govs WHERE slug = '".$param2."'")) {
@@ -38,18 +38,18 @@ if ($param1 == 'govlist' && $param2 == 'id'){
 		$rows = getSubordinates(0,0,$gov_id,$con);
 	}else{
 		$gov = '';
-		$rows = [];
+		$rows = NULL;
 	}
 } else if ($param1 == 'govdetail' && $param2 == 'id'){
 	//$rows = getSubordinates(0,$param3,$con);
-	$rows = [];
+	$rows = NULL;
 }else if($param1 == 'govdetail' && $param2 !== ''){
     //if ($result = $con->query("SELECT gov_id FROM govs WHERE slug = '".$param2."'")) {
     //    $row = $result->fetch_row();
 	//	$gov_id = $row[0]; 
 	//	$rows = getSubordinates(0,$gov_id,$con);
 	//}
-	$rows = [];
+	$rows = NULL;
 }
 
 //converts nested array into json  
