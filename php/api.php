@@ -1,4 +1,5 @@
 <?php
+
 header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Mon, 26 Jul 2015 05:00:00 GMT');
 header('Content-type: application/javascript');
@@ -25,25 +26,25 @@ if ($param1 == 'govlist' && $param2 == 'id'){
         $row = $result->fetch_row();
 		$gov_id = $param3; 
 		$gov = $row[0];
-		$rows = getSubordinates(0,0,$gov_id,$con);
 	}else{
 		$gov = '';
 		$rows = [];
 	}
+	$sup_id = 0;
 }else if($param1 == 'govlist' && $param2 !== ''){
     if ($result = $con->query("SELECT gov_id, name FROM govs WHERE slug = '".$param2."'")) {
         $row = $result->fetch_row();
 		$gov_id = $row[0]; 
 		$gov = $row[1];
-		$rows = getSubordinates(0,0,$gov_id,$con);
 	}else{
 		$gov = '';
 		$rows = [];
 	}
-} else if ($param1 == 'govdetail' && $param2 == 'id'){
-	//$rows = getSubordinates(0,$param3,$con);
-	$rows = [];
-}else if($param1 == 'govdetail' && $param2 !== ''){
+	$sup_id = 0;
+} else if ($param1 == 'govdetail' && $param3 == 'id'){
+	$gov_id = $param2;
+	$sup_id = $param4;
+}else if($param1 == 'govdetail' && $param3 !== ''){
     //if ($result = $con->query("SELECT gov_id FROM govs WHERE slug = '".$param2."'")) {
     //    $row = $result->fetch_row();
 	//	$gov_id = $row[0]; 
@@ -52,8 +53,18 @@ if ($param1 == 'govlist' && $param2 == 'id'){
 	$rows = [];
 }
 
-//converts nested array into json  
-print "{\"name\":\"".$gov."\",\"children\":".json_encode($rows)."}";
+$cachefile = './cachefile_'.$param1.'_'.$sup_id.'_'.$gov_id.'.json';
+
+if (file_exists($cachefile)){
+	print file_get_contents($cachefile);
+}else{
+	$rows = getSubordinates($sup_id,0,$gov_id,$con);
+	$resp = "{\"name\":\"".$gov."\",\"children\":".json_encode($rows)."}";
+	print $resp;
+	$fp = fopen($cachefile, 'w');
+	fwrite($fp, $resp); 
+	fclose($fp);
+}
 
 function getSubordinates($supID,$level,$gov_id,$con){
 
