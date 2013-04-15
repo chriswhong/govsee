@@ -20,6 +20,16 @@ body {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+	position: relative;
+}
+
+#bottomcontainer {
+	width: 1045px;
+	height: 100%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	position: relative;
 }
 
 #bottombg {
@@ -39,14 +49,14 @@ body {
 	font-size: 72px;
 	color: #40B8E2;
 	margin: 0;
-	line-height:61px;
+	line-height: 61px;
 }
 
 .bigbluewrapper {
 
 	position: absolute;
 	top: 156px;
-	left:60px;
+	left: 60px;
 }
 
 .slidermockup {
@@ -64,100 +74,162 @@ body {
 }
 
 .bjqs-wrapper {
-	
-	
+
 }
 
-
-.tagline{
+.tagline {
 	font-family: ProximaNovaSemibold;
 	font-size: 17px;
 	color: #808080;
-	position:absolute;
-	top:300px;
-	left:60px;
+	position: absolute;
+	top: 300px;
+	left: 60px;
 }
 
-#pinkbar{
+#pinkbar {
 	width: 400px;
-	
-height:13px;
-background: #D4145A;
-position:relative;
-top:35px;
-left:60px;
-font-family:ProximaNovaSemibold;
-color:#FFFFFF;
-font-size:17px;
-padding:10px;
-
-	
+	height: 13px;
+	background: #D4145A;
+	position: absolute;
+	top: 35px;
+	left: 60px;
+	font-family: ProximaNovaSemibold;
+	color: #FFFFFF;
+	font-size: 17px;
+	padding: 10px;
 }
 
 #mc_embed_signup {
-	position:relative;
-	top:50px;
-	left:60px;
-	padding:0;
-		
+	position: absolute;
+	top: 82px;
+	left: 60px;
+	padding: 0;
 }
 
-#mc_embed_signup input.email{
-	height:29px;
-	border:0;
-	padding:2px 0 0 10px;
-	margin:0;
+#mc_embed_signup .clear {
+	float: right;
+}
+
+#mc_embed_signup input.email {
+	height: 29px;
+	border: 0;
+	padding: 2px 0 0 10px;
+	margin: 0;
 	font-family: ProximaNovaSemibold;
 	color: #4d4d4d;
-	font-size:17px;
+	font-size: 17px;
 	float: left;
 }
 
-#mc_embed_signup input.button{
+#mc_embed_signup input.button {
 	border: 0;
-backgroun: none;
-background: none;
-font-family: ProximaNovaSemibold;
-font-size: 17px;
-color: #808080;
-padding: 7px 0 0 5px;
-	
-}
-
-
-#footerleft{
-	
+	backgroun: none;
+	background: none;
 	font-family: ProximaNovaSemibold;
-position: relative;
-top: 108px;
-left: -141px;
-font-size: 15px;
-color: #4d4d4d;
-float:left;
+	font-size: 17px;
+	color: #808080;
+	padding: 7px 0 0 5px;
 }
 
-#footerright{
-position: relative;
-right: -392px;
-top: 164px;
-right: 60px;
-float: right;
-width: 195px;
+#mc_embed_signup input.button:hover {
+	color: #D4145A;
+	cursor: pointer;
 }
 
-#tweet{
-	float:right;
+.signin {
+	position: absolute;
+	width: 300px;
+	height: 115px;
+	top: 35px;
+	left: 684px;
+	background: #E6E6E6;
+}
+
+.signin input.signin-username {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	height: 29px;
+	width: 266px;
+	border: 0;
+	padding: 2px 0 0 10px;
+	margin: 0;
+	font-family: ProximaNovaSemibold;
+	color: #4d4d4d;
+	font-size: 17px;
+	float: left;
+}
+
+.signin input.signin-password {
+	position: absolute;
+	top: 53px;
+	left: 12px;
+	height: 29px;
+	border: 0;
+	padding: 2px 0 0 10px;
+	margin: 0;
+	font-family: ProximaNovaSemibold;
+	color: #4d4d4d;
+	font-size: 17px;
+	float: left;
+	width: 195px;
+}
+
+.signin input.button {
+	border: 0;
+	background: none;
+	font-family: ProximaNovaSemibold;
+	font-size: 17px;
+	color: #808080;
+	position: absolute;
+	top: 58px;
+	left: 224px;
+}
+
+input.button:hover {
+
+	color: #D4145A;
+	cursor: pointer;
+}
+
+.signintext {
+	position: absolute;
+	top: 89px;
+	font-family: ProximaNovaLight;
+	font-size: 11px;
+	color: #808080;
+	left: 8px;
+	text-shadow: 0 1px 0 rgba(255,255,255,.6);
+}
+
+.signintext span, .forgot {
+	position: relative;
+	top: -3px;
+}
+
+#footerleft {
+
+	font-family: ProximaNovaSemibold;
+	position: relative;
+	top: 174px;
+	left: 60px;
+	font-size: 15px;
+	color: #4d4d4d;
+	float: left;
+}
+
+#tweet {
+	float: right;
 	right: 46px;
-top: 108px;
+	top: 167px;
 	position: relative;
 }
-.fb-like{
-	float:right;
+.fb-like {
+	float: right;
 	right: 60px;
-top: 108px;
-	position:relative;
+	top: 166px;
+	position: relative;
 }
-	
 
 @font-face {
 	font-family: ProximaNova;
@@ -170,4 +242,71 @@ top: 108px;
 @font-face {
 	font-family: ProximaNovaSemibold;
 	src: url(../font/ProximaNova-Semibold.otf);
+}
+
+a:link {
+	text-decoration: none;
+	color: #808080;
+}
+
+#menu {
+	position: absolute;
+	top: 76px;
+	font-family: ProximaNova;
+	font-size: 25px;
+	right: 60px;
+	color: #808080;
+	z-index: 2;
+}
+.menuitem {
+	padding-left: 30px;
+}
+.menuitem:hover {
+	color: #D4145A;
+	cursor: pointer;
+}
+.infobox {
+	position: absolute;
+	width: 720px;
+	background: rgb(255, 255, 255);
+	left: 120px;
+	top: 133px;
+	height: 490px;
+	z-index: 4;
+	padding: 40px;
+	font-family: proximaNovaLight;
+	color: rgb(182, 182, 182);
+	font-size: 32px;
+	display:none;
+}
+
+.infotitle {
+	font-size: 51px;
+}
+
+.infobox a:link {
+	color: #40B8E2;
+	text-shadow: 1px 1px 2px rgb(250, 250, 250);
+}
+.infobox a:visited {
+	color: #40B8E2;
+	text-shadow: 1px 1px 2px rgb(250, 250, 250);
+}
+.infobox a:hover {
+
+	color: #D4145A;
+	cursor: pointer;
+}
+.closebox {
+	position: absolute;
+	top: 24px;
+	right: 22px;
+}
+
+.closebox:hover{
+	color: #D4145A;
+	cursor: pointer;
+}
+#contactbox {
+	font-size: 32px;
 }

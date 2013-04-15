@@ -22,6 +22,20 @@
 					'responsive' : true
 
 				});
+
+				$(".closebox").click(function() {
+					var parentLink = $(this).parent();
+					$(parentLink).fadeOut("slow");
+				});
+
+				$("#about").click(function() {
+					$("#aboutbox").fadeIn("slow");
+				});
+
+				$("#contact").click(function() {
+					$("#contactbox").fadeIn("slow");
+				});
+
 			});
 
 		</script>
@@ -44,9 +58,49 @@
 		<div id = 'wrapper'>
 			<div id = 'topbg'>
 				<div id ='topcontainer'>
+					<div id = "aboutbox" class = "infobox">
+						<div class = "closebox">
+							X
+						</div>
+						<span class = "infotitle">About</span><br/><br/>
+
+						“Government is a vast ocean and politics is a 6-inch layer on top.” -<a href = "http://www.ted.com/talks/jennifer_pahlka_coding_a_better_government.html">Jennifer Pahlka</a><br/><br/>
+						
+
+						govSee is here to help you take the plunge into that ocean. It helps you make sense of the myriad bureaus, agencies, departments, offices and people that make up your government. Our platform is a standardized, interactive database and visualization system of government positions and the people who fill them.<br/><br/>
+						Coming summer 2013. Check out our entry in the <a href = "https://www.newschallenge.org/open/open-government/submission/govsee-the-government-structure-visualization-wiki/">Knight News Challenge</a>.
+						<br/>
+
+					</div>
+					<div id = "contactbox" class ="infobox">
+						<div class = "closebox">
+							X
+						</div>
+						<div class = "infotitle">
+							Contact
+						</div></br>
+						We'd love to hear from you!
+						<br/>
+						<br/>
+						<br/>
+						Shoot an email to <a href = mailto:contact@govsee.com>contact@govsee.com</a>
+						<br/>
+						<br/>
+
+						or
+						<br/>
+						<br/>
+
+						Tweet to <a href = "https://twitter.com/govsee">@govSee</a>
+						<br>
+					</div>
+
 					<div id = 'logo'>
 						<img src = "img/logo52.png">
 
+					</div>
+					<div id="menu">
+						<span id = "about" class = "menuitem">About</span><span id = "contact" class = "menuitem">Contact</span>
 					</div>
 					<div id="slider">
 						<ul class="bjqs">
@@ -83,25 +137,43 @@
 							</li>
 						</ul>
 					</div>
+				</div>
+				<div id = "bottomcontainer">
 					<div id = "pinkbar">
 						Want to be contacted when the Beta is available?
 					</div>
-					
-						<!-- Begin MailChimp Signup Form -->
-						
-						
-						<div id="mc_embed_signup">
-							<form action="http://govsee.us6.list-manage.com/subscribe/post?u=67cf1a1a76&amp;id=02e523b26f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-								
-								<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
-								<div class="clear">
-									<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-								</div>
-							</form>
-						</div>
+					<div class="signin">
+						<form action="php/login.php" class="" method="post">
 
-						<!--End mc_embed_signup-->
-					
+							<input type="text" id="username" class="signin-username" name="username" placeholder="Username" tabindex="1">
+
+							<input type="password" id="password" class="signin-password" name = "password" placeholder="Password" tabindex="2">
+
+							<input type="submit" value="Sign In" name="signin" id="signin" class="button">
+
+							<div class="signintext">
+								<label class="remember">
+									<input type="checkbox" value="1" name="remember_me" tabindex="3">
+									<span>Remember me</span> </label>
+								<span class="separator">·</span>
+								<a class="forgot" href="/account/resend_password">Forgot password?</a>
+							</div>
+
+						</form>
+					</div>
+					<!-- Begin MailChimp Signup Form -->
+
+					<div id="mc_embed_signup">
+						<form action="http://govsee.us6.list-manage.com/subscribe/post?u=67cf1a1a76&amp;id=02e523b26f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+							<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email" required>
+
+							<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+
+						</form>
+					</div>
+
+					<!--End mc_embed_signup-->
 
 					<div id = "footerleft">
 						© 2013 Govsee.com
@@ -124,9 +196,8 @@
 					</div>
 
 				</div>
-			</div>
 
-		</div>
+			</div>
 
 		</div>
 

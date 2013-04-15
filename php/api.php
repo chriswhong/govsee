@@ -28,7 +28,7 @@ if ($param1 == 'govlist' && $param2 == 'id'){
 		$gov = $row[0];
 	}else{
 		$gov = '';
-		$rows = [];
+		$rows = NULL;
 	}
 	$sup_id = 0;
 }else if($param1 == 'govlist' && $param2 !== ''){
@@ -38,7 +38,7 @@ if ($param1 == 'govlist' && $param2 == 'id'){
 		$gov = $row[1];
 	}else{
 		$gov = '';
-		$rows = [];
+		$rows = NULL;
 	}
 	$sup_id = 0;
 } else if ($param1 == 'govdetail' && $param3 == 'id'){
@@ -50,7 +50,7 @@ if ($param1 == 'govlist' && $param2 == 'id'){
 	//	$gov_id = $row[0]; 
 	//	$rows = getSubordinates(0,$gov_id,$con);
 	//}
-	$rows = [];
+	$rows = NULL;
 }
 
 $cachefile = './cachefile_'.$param1.'_'.$sup_id.'_'.$gov_id.'.json';
