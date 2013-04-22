@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="/css/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/d3.v3.min.js"></script>
+		<script type="text/javascript" src="/js/spin.min.js"></script>
+		<script type="text/javascript" src="/js/jquery-svgpan.js"></script>
+		<script>var gov_id = {{gov_id}};</script>
+		<script type="text/javascript" src="/js/govsee2.js"></script>
+		<title>GovSee - {{gov_name}}</title>
+  <style type="text/css">
+
+
+.node circle {
+  cursor: pointer;
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font-size: 11px;
+}
+
+path.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+    </style>
+	</head>
+	<body>
+		<div id="header"><img src = "/img/logo43.png"></div>
+		<div id="footer"><ul><li><a href ="#">About</a></li> <li><a href ="#">Blog</a></li>  <li><a href ="#">Content</a></li> </ul></div>
+		<div id="chart"></div>
+
+		<div id = "sidebar">
+			Doubleclick a node with children to collapse it.
+			Drag nodes to rearrange the layout.
+			Use scroll wheel to zoom.
+			Drag white space to pan.
+			<div id="boxName">{{gov_name}}</div>
+			<div id="boxText"></div>
+			<div id="personName"></div>
+			<div id="personText"></div>
+			<div id="form">
+				<form name="addbox" id="addbox" action="/reformed/formmail/formmail.php">
+					<label for="name">Add Subordinate</label>
+					<br/>
+
+					<input type="text" name = "name" id="newSubName"  />
+					Name 					<textarea name="description" id="description" rows="6" cols="30">Enter text here...</textarea>
+<br/>					description
+					<input type='hidden' name = "superiorbox" id='uid' value=''>
+					<br/>
+					<a href="javascript: submitform()">Add</a>
+
+				</form>
+				<input type='hidden' name = "index" id='index' value=''>
+			</div>
+		</div>
+	</body>
+</html>
