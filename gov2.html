@@ -6,34 +6,45 @@
 		<script type="text/javascript" src="/js/d3.v3.min.js"></script>
 		<script type="text/javascript" src="/js/spin.min.js"></script>
 		<script type="text/javascript" src="/js/jquery-svgpan.js"></script>
-		<script>var gov_id = {{gov_id}};</script>
+		<script>
+			var gov_id = {{gov_id}};
+		</script>
 		<script type="text/javascript" src="/js/govsee2.js"></script>
 		<title>GovSee - {{gov_name}}</title>
-  <style type="text/css">
+		<style type="text/css">
+			.node circle {
+				cursor: pointer;
+			}
 
+			.node text {
 
-.node circle {
-  cursor: pointer;
-  fill: #fff;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
+				fill: #4d4d4d;
+			}
 
-.node text {
-  font-size: 11px;
-}
+			path.link {
+				fill: none;
+				stroke: #ccc;
+				stroke-width: 1.5px;
+			}
 
-path.link {
-  fill: none;
-  stroke: #ccc;
-  stroke-width: 1.5px;
-}
-
-    </style>
+		</style>
 	</head>
 	<body>
-		<div id="header"><img src = "/img/logo43.png"></div>
-		<div id="footer"><ul><li><a href ="#">About</a></li> <li><a href ="#">Blog</a></li>  <li><a href ="#">Content</a></li> </ul></div>
+		<div id="header"><img src = "/img/logo43.png">
+		</div>
+		<div id="footer">
+			<ul>
+				<li>
+					<a href ="#">About</a>
+				</li>
+				<li>
+					<a href ="#">Blog</a>
+				</li>
+				<li>
+					<a href ="#">Content</a>
+				</li>
+			</ul>
+		</div>
 		<div id="chart"></div>
 
 		<div id = "sidebar">
@@ -41,7 +52,9 @@ path.link {
 			Drag nodes to rearrange the layout.
 			Use scroll wheel to zoom.
 			Drag white space to pan.
-			<div id="boxName">{{gov_name}}</div>
+			<div id="boxName">
+				{{gov_name}}
+			</div>
 			<div id="boxText"></div>
 			<div id="personName"></div>
 			<div id="personText"></div>
@@ -52,7 +65,8 @@ path.link {
 
 					<input type="text" name = "name" id="newSubName"  />
 					Name 					<textarea name="description" id="description" rows="6" cols="30">Enter text here...</textarea>
-<br/>					description
+					<br/>
+					description
 					<input type='hidden' name = "superiorbox" id='uid' value=''>
 					<br/>
 					<a href="javascript: submitform()">Add</a>
